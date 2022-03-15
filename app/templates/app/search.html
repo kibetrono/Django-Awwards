@@ -1,0 +1,110 @@
+{%extends 'base.html'%}
+{% block content %}
+<div class="container">
+
+  <div class="row">
+    {% if results%}
+      <h2 class="text-center">Found {{ results|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2 class="text-center"> Found 0 results for the search term {{message}}</h2>
+    {% endif %}
+    <hr>
+  </div>
+
+  <div class="row">
+
+  {% if results %}
+   <section class="blog-section" id="posts">
+    <div class="container-fluid mt-5">
+
+        <div class="row mt-4">
+            {% for project in results %}
+            <div class="col-md-12 col-lg-3">
+                <div class="card mb-4">
+                     <a href=""  data-bs-toggle="modal" data-bs-target='#showDetails{{profile.id}}' >
+                    <img style="height:30vh;width:100%" src="{{ project.image.url }}">
+
+        </a>
+                    <div class="card-body">
+                        <a href="" style="text-decoration:none" data-bs-toggle="modal" data-bs-target='#showDetails{{profile.id}}'>
+                            <h6 class="fade-item mb-2">Project Title: {{ project.title }}</h6>
+
+                            <div>
+                                    <p>By: {{ project.user}}</p>
+                                </div>
+                                                    </a>
+
+
+
+                                                    <div class="row">
+                                                      <div class="col-md-4">
+                                                        <div>
+                                                          <a style="text-decoration:none" href="{% url 'vote_details' project.id %}">
+                  
+                                                           <p  class="text-center">Vote</p>
+                  
+                                                          </a>
+                                                       </div>
+                                                      </div>
+                                                      <div class="col-md-3"></div>
+                                                      <div class="col-md-5">
+                                                        <a href="" style="text-decoration:none" data-bs-toggle="modal" data-bs-target='#showDetails{{profile.id}}'>Show More</a>
+                
+                                                       
+                                                      </div>
+                                                    </div>
+
+
+                    </div>
+                </div>
+            </div>
+ <!--The main modal-->
+<!--tabindex="-1" aria-labelledby="modal-title" aria-hidden="true"-->
+
+    <div class="modal fade" id="showDetails{{profile.id}}" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center text-warning h1" >
+
+        </h5>
+      </div>
+                    <!-------modal body----------->
+
+      <div class="modal-body">
+        <div class=" show_image">
+                    <img style="height:30vh;width:100%" src="{{ project.image.url }}">
+        </div>
+        <div class="image_name">
+                            <h6 class="fade-item mb-2">Project Title: {{ project.title }}</h6>
+        </div>
+        <div class="category">
+<div>
+                                    <p>Posted on: {{ project.date|date}}</p>
+                                </div>
+        </div>
+        <div class="show_description">
+<div>
+                                    <p>Description: {{ project.description|safe}}</p>
+                                </div>
+        </div>
+      </div>
+            <!-------/modal body----------->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!--/The main modal-->
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
