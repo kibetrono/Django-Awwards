@@ -93,3 +93,15 @@ def rate(request,id):
 
     context = {"form": form,'rating':Rating.objects.all()}
     return render(request,'app/rate.html',context)
+
+@login_required(login_url='login')
+def search(request):
+    if 'query' in request.GET and request.GET["query"]:
+        search_term = request.GET.get("query")
+        searched_projects = Project.objects.filter(title__icontains=search_term)
+        message = f"Search For: {search_term}"
+
+        return render(request, "app/search.html", {"message": message, "results": searched_projects})
+    else:
+        message = "You haven't searched for any term"
+        return render(request, "app/search.html", {"message": message})
