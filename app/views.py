@@ -30,3 +30,18 @@ def my_profile(request):
     project = Project.objects.filter(user_id=current_user.id).all()  
     context={"profile": profile, "images": project}
     return render(request, "app/my_profile.html", context)
+
+
+@login_required(login_url='login')
+def uploadProject(request):
+
+    form = ProjectUploadForm()
+    if request.method == "POST":
+        form_results = ProjectUploadForm(request.POST,request.FILES)
+        if form_results.is_valid():
+
+            form_results.save()
+            return redirect('home')
+
+    context = {"form": form}
+    return render(request, 'app/upload_project.html', context)
