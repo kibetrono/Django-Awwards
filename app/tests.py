@@ -62,3 +62,25 @@ class ProjectTestClass(TestCase):
     def tearDown(self):
         """tearDown method"""
         Project.objects.all().delete()
+
+
+
+class RatingTestClass(TestCase):
+    # Set up method
+    def setUp(self):
+        """Creating a new rating and saving it"""
+        user = User.objects.create(username='kibet',first_name='rono',last_name='David')
+        self.project=Project.objects.create(user=user,title="project 1",description="Initial project",image='lorem2.png',url="https://ksms.or.ke/contact-us-3/",location="New description",date=None)
+        self.project.save_project()
+        self.rating=Rating.objects.create(user=user,project=self.project,design_rate=1,usability_rate=3,content_rate=5,avg_rate=3,date=None)
+        self.rating.save_rating()
+
+    def test_instance(self):
+        """Testing instance"""
+        self.assertTrue(isinstance(self.rating, Rating))
+
+    def test_save_method(self):
+        """Testing Save Method"""
+        self.rating.save_rating()
+        rating = Rating.objects.all()
+        self.assertTrue(len(rating) > 0)
