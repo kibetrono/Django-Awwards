@@ -21,3 +21,12 @@ def home(request):  # Home page
     rating = Rating.objects.filter(project_id=recent_project.id).first()
     context={"projects": project, "project_home": recent_project, "rating": rating}
     return render(request, "app/index.html",context)
+
+
+@login_required(login_url='login')
+def my_profile(request):
+    current_user = request.user
+    profile = Profile.objects.filter(user_id=current_user.id).first()  
+    project = Project.objects.filter(user_id=current_user.id).all()  
+    context={"profile": profile, "images": project}
+    return render(request, "app/my_profile.html", context)
