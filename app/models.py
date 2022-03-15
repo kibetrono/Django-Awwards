@@ -77,3 +77,7 @@ class Rating(models.Model):
     content_rate = models.IntegerField(default=0, blank=True, null=True)
     avg_rate = models.IntegerField(default=0, blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
+
+
+    def save_rating(self):
+        self.save()
