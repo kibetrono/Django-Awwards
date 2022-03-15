@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- single post details -->
+<!-- check if image exists -->
+<div class="container">
+    <div class="row mt-4">
+
+            <div class="col-md-12 ">
+                <div class="card mb-4">
+                     <a href=""  data-bs-toggle="modal" data-bs-target='#showDetails{{profile.id}}' >
+                    <img style="height:40vh;width:100%" src="{{ project.image.url }}">
+
+        </a>
+                    <div class="card-body">
+                        <a href="" style="text-decoration:none" data-bs-toggle="modal" data-bs-target='#showDetails{{profile.id}}'>
+                            <h6 class="fade-item mb-2">Project Title: {{ project.title }}</h6>
+
+                                                    </a>
+
+                                    <div>
+
+                                </div>
+
+
+                    </div>
+                </div>
+            </div>
+ <!--The main modal-->
+<!--tabindex="-1" aria-labelledby="modal-title" aria-hidden="true"-->
+
+    <div class="modal fade" id="showDetails{{profile.id}}" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center text-warning h1" >
+
+        </h5>
+      </div>
+                    <!-------modal body----------->
+
+      <div class="modal-body">
+        <div class=" show_image">
+                    <img style="height:30vh;width:100%" src="{{ project.image.url }}">
+        </div>
+        <div class="image_name">
+                            <h6 class="fade-item mb-2">Project Title: {{ project.title }}</h6>
+        </div>
+        <div class="category">
+<div>
+                                    <p>Posted on: {{ project.date|date}}</p>
+                                </div>
+        </div>
+        <div class="show_description">
+<div>
+                                    <p>Description: {{ project.description|safe}}</p>
+                                </div>
+        </div>
+      </div>
+            <!-------/modal body----------->
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!--/The main modal-->
+        </div>
+                <div class="row cardf p-3">
+                    <!-- <div class="card-header">
+                        <h3>USER VOTES</h3>
+                    </div> -->
+                    {% for rate in rating %}
+                    <div class="col-md-12">
+                        <p>Design: {{ rate.design_rate  }}</p>
+                        <p>Usability: {{ rate.usability_rate }}</p>
+                        <p>Content: {{ rate.content_rate }}</p>
+                        <div class="d-flex justify-content-between">
+
+
+                        </div>
+                    </div>
+                    <hr>
+                    {% empty %}
+                    <div class="col-md-6 text-center not-found">
+                        <i class="fa fa-exclamation"></i>
+                        <p>No votes yet!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {% if user.is_authenticated %}
+                        <div class="d-grid gap-2 mt-2">
+                            <a class="btn btn-primary text-center" href="{% url 'rate' project.id  %}">Vote</a>
+
+                            <!-- Modal -->
+
+                        </div>
+                        {% else %}
+                        <div class="d-grid gap-2 mt-4">
+                            <a class="btn" href="{% url 'login' %}">Sign In to Vote</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+    {% endblock %}
