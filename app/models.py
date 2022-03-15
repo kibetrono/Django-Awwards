@@ -33,3 +33,8 @@ class Project(models.Model):
     def get_all_projects_by_user(cls, user):
         projects = cls.objects.filter(user=user)
         return projects
+
+    def update_project(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+        self.save()
