@@ -67,3 +67,29 @@ def vote_details(request, project_id):
     rating = Rating.objects.filter(id=project_id)
     context={"project": project, "rating": rating}
     return render(request, "app/voting.html", context)
+
+@login_required(login_url='login')
+def rate(request,id):
+    form = RatingForm()
+    # rating= Rating.objects.get(id=id)
+    project = Project.objects.get(id=id)
+
+    # rating= Rating.objects.filter(project=project)
+
+    if request.method == "POST":
+
+        form_results = RatingForm(request.POST)
+        if form_results.is_valid():
+            design_rate = request.POST["design_rate"]
+            usability_rate = request.POST["usability_rate"]
+            content_rate = request.POST["content_rate"]
+
+            avg_rating = (int(design_rate) + int(usability_rate) + int(content_rate)) / 3
+
+            project.rate = avg_rating
+            project.update_project()
+            form_results.save()
+            return redirect('home')
+
+    context = {"form": form,'rating':Rating.objects.all()}
+    return render(request,'app/rate.html',context)
