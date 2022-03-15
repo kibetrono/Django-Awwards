@@ -34,6 +34,7 @@ class Project(models.Model):
         projects = cls.objects.filter(user=user)
         return projects
 
+    # update project
     def update_project(self, **kwargs):
         for key, value in kwargs.items():
             setattr(self, key, value)
@@ -56,7 +57,7 @@ class Profile(models.Model):
     contact = models.CharField(max_length=250, blank=True, null=True)
 
     def save_profile(self):
-            self.save()
+        self.save()
 
     def delete_profile(self):
         self.delete()
@@ -69,6 +70,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True,blank=True)
@@ -78,9 +80,16 @@ class Rating(models.Model):
     avg_rate = models.IntegerField(default=0, blank=True, null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
-
     def save_rating(self):
         self.save()
 
     def delete_rating(self):
         self.delete()
+
+    @classmethod
+    def filter_by_id(cls, id):
+        rating = Rating.objects.filter(id=id).first()
+        return rating
+
+    def __str__(self):
+        return self.usability_rate
