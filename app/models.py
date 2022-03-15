@@ -44,3 +44,13 @@ class Project(models.Model):
 
     def delete_project(self):
         self.delete()
+
+    def __str__(self):
+        return self.title
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_photo = CloudinaryField("image")
+    bio = models.TextField(max_length=250, blank=True, null=True)
+    contact = models.CharField(max_length=250, blank=True, null=True)
