@@ -23,3 +23,13 @@ class Project(models.Model):
     def get_project_by_id(cls, id):
         project = cls.objects.get(id=id)
         return project
+
+    @classmethod
+    def get_all_projects(cls):
+        projects = cls.objects.all()
+        return projects
+
+    @classmethod
+    def get_all_projects_by_user(cls, user):
+        projects = cls.objects.filter(user=user)
+        return projects
