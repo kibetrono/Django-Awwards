@@ -45,3 +45,10 @@ def uploadProject(request):
 
     context = {"form": form}
     return render(request, 'app/upload_project.html', context)
+
+class ProfileList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
