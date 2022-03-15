@@ -54,3 +54,9 @@ class Profile(models.Model):
     profile_photo = CloudinaryField("image")
     bio = models.TextField(max_length=250, blank=True, null=True)
     contact = models.CharField(max_length=250, blank=True, null=True)
+
+    def save_profile(self):
+            self.save()
+
+    def delete_profile(self):
+        self.delete()
