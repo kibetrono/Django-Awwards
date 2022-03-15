@@ -38,3 +38,9 @@ class Project(models.Model):
         for key, value in kwargs.items():
             setattr(self, key, value)
         self.save()
+
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
