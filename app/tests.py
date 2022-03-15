@@ -64,7 +64,6 @@ class ProjectTestClass(TestCase):
         Project.objects.all().delete()
 
 
-
 class RatingTestClass(TestCase):
     # Set up method
     def setUp(self):
@@ -84,3 +83,16 @@ class RatingTestClass(TestCase):
         self.rating.save_rating()
         rating = Rating.objects.all()
         self.assertTrue(len(rating) > 0)
+
+    def test_delete_method(self):
+        """Testing delete Method"""
+        self.rating.delete_rating()
+        rating= Rating.objects.all()
+        self.assertTrue(len(rating) < 1)
+
+    def tearDown(self):
+        """tearDown method"""
+        Rating.objects.all().delete()
+
+
+
