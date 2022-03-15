@@ -14,4 +14,12 @@ class Project(models.Model):
     location = models.CharField(max_length=100, default="Nairobi")
     date = models.DateTimeField(auto_now_add=True, null=True)
 
-  
+    @classmethod
+    def search_by_title(cls, search_term):
+        projects = cls.objects.filter(title__icontains=search_term)
+        return projects
+
+    @classmethod
+    def get_project_by_id(cls, id):
+        project = cls.objects.get(id=id)
+        return project
