@@ -59,3 +59,11 @@ class ProjectList(APIView): # get all projects
         all_projects = Project.objects.all()
         serializers = ProjectSerializer(all_projects, many=True)
         return Response(serializers.data)
+
+@login_required(login_url='login')
+def vote_details(request, project_id):
+    project = Project.objects.get(id=project_id)
+    # get project rating
+    rating = Rating.objects.filter(id=project_id)
+    context={"project": project, "rating": rating}
+    return render(request, "app/voting.html", context)
