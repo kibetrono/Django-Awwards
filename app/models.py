@@ -68,3 +68,12 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Rating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True,blank=True)
+    design_rate = models.IntegerField(default=0, blank=True, null=True)
+    usability_rate = models.IntegerField(default=0, blank=True, null=True)
+    content_rate = models.IntegerField(default=0, blank=True, null=True)
+    avg_rate = models.IntegerField(default=0, blank=True, null=True)
+    date = models.DateTimeField(auto_now_add=True, null=True)
