@@ -22,15 +22,13 @@ def home(request):  # Home page
     context={"projects": project, "project_home": recent_project, "rating": rating}
     return render(request, "app/index.html",context)
 
-
 @login_required(login_url='login')
 def my_profile(request):
     current_user = request.user
-    profile = Profile.objects.filter(user_id=current_user.id).first()  
-    project = Project.objects.filter(user_id=current_user.id).all()  
+    profile = Profile.objects.filter(user_id=current_user.id).first()  # get profile
+    project = Project.objects.filter(user_id=current_user.id).all()  # get all projects
     context={"profile": profile, "images": project}
     return render(request, "app/my_profile.html", context)
-
 
 @login_required(login_url='login')
 def uploadProject(request):
@@ -46,12 +44,13 @@ def uploadProject(request):
     context = {"form": form}
     return render(request, 'app/upload_project.html', context)
 
-class ProfileList(APIView):
+class ProfileList(APIView): # get all profiles
     permission_classes = (IsAdminOrReadOnly,)
     def get(self, request, format=None):
         all_profiles = Profile.objects.all()
         serializers = ProfileSerializer(all_profiles, many=True)
         return Response(serializers.data)
+
 
 class ProjectList(APIView): # get all projects
     permission_classes = (IsAdminOrReadOnly,)
@@ -105,3 +104,7 @@ def search(request):
     else:
         message = "You haven't searched for any term"
         return render(request, "app/search.html", {"message": message})
+
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
