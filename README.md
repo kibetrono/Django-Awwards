@@ -40,7 +40,7 @@ A django applications where users can upload their photos  as well as view other
 
 ## Live Link
 
-* [Click Here]() to view Django Awards
+* [Click Here](https://kibawards.herokuapp.com/) to view Django Awards
 
 
 ## Contact Information
