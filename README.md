@@ -3,7 +3,7 @@
 ### By David Kibet Rono
 
 ## Description
-A django applications where users can upload their photos  as well as view other users photos on their timeline. Each user also has the capability to follow other users,like and also comment on their photos.
+A django applications where users can upload their projects as well as view other users projects on their timeline. Each user also has the capability to vote on the available projects depending  on the usability rate,design rate and content rate.
 
 ## Setup Requirements
 * Git
