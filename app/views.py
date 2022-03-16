@@ -17,9 +17,7 @@ from django.http import HttpResponse
 @login_required(login_url='login')
 def home(request):  # Home page
     project = Project.objects.all()
-    recent_project = project
-    rating = Rating.objects.filter(project_id=recent_project.id).first()
-    context={"projects": project, "project_home": recent_project, "rating": rating}
+    context={"projects": project}
     return render(request, "app/index.html",context)
 
 @login_required(login_url='login')
